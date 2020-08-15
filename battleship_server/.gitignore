@@ -1,2 +1,4 @@
 ﻿.idea
 venv
+for_tests.py
+game_logic.py
