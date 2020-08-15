@@ -81,7 +81,7 @@ class Player:
                     self.shoots += ship.ship_around
                     enemy.battlefield[coord[0]][coord[1]] = 3
                     enemy.battlefield_change(ship.ship_around, 2)
-                    return shoot_status, ship.ship_coord + ship.ship_around
+                    return shoot_status, ship.ship_around
         enemy.battlefield[coord[0]][coord[1]] = 2
         return shoot_status, []
 
@@ -142,3 +142,6 @@ class AIPlayer(Player):
                     neighbor_points.append((min_row + len(self.hits), self.hits[0][1]))
             random_point = choice(neighbor_points)
         return random_point
+
+
+# замутить норм выбор координат

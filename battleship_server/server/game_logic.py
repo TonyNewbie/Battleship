@@ -11,10 +11,10 @@ for line in computer.battlefield:
     print(line)
 while True:
     while True:
-        while True:
-            another_computer_coord = another_computer.coord_select()
-            if another_computer_coord not in another_computer.shoots:
-                break
+        # while True:
+        #     another_computer_coord = another_computer.coord_select()
+        #     if another_computer_coord not in another_computer.shoots:
+        #         break
         result = another_computer.shoot(computer, another_computer_coord)
         if result[0] == 0:
             print('Мимо')
