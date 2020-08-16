@@ -1,9 +1,14 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from server.Player import *
+from django.shortcuts import render
 
 player = Player()
 computer = AIPlayer()
+
+
+def index(request):
+    return render(request, "index.html")
 
 
 class StartGameView(APIView):
@@ -11,11 +16,11 @@ class StartGameView(APIView):
         global player, computer
         player = Player()
         computer = AIPlayer()
-        fields = {
-            'player_field': player.battlefield,
-            'computer_field': computer.battlefield
-        }
-        return Response({'fields': fields})
+        # fields = {
+        #     'player_field': player.battlefield,
+        #     'computer_field': computer.battlefield
+        # }
+        return Response({'player_field': player.battlefield})
 
 
 class GameProcessView(APIView):
@@ -53,7 +58,9 @@ class GameProcessView(APIView):
             else:
                 if shoot_result[0] == 1:
                     player_changes[''.join(map(str, computer_coord))] = 1
+                    computer.hits.append(computer_coord)
                 if shoot_result[0] == 2:
+                    computer.hits.clear()
                     player_changes[''.join(map(str, computer_coord))] = 1
                     for death_ship_coord in shoot_result[1]:
                         player_changes[''.join(map(str, death_ship_coord))] = 0

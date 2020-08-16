@@ -48,7 +48,7 @@ class Player:
                         orientation = randrange(2)
                         # создаем корабль и проверяем, чтобы он не пересекался с другими
                         ship = Ship(length, orientation, start_point)
-                        ships_crossing = list(set(self.fleet_coord) & set(ship.ship_coord + ship.ship_around))
+                        ships_crossing = list(set(self.fleet_coord) & set(ship.ship_coord))
                         # если все успешно, добавляем корабль и его координаты во флот, изменяем разметку поля
                         if ship.correct_create and not ships_crossing:
                             self.fleet_coord += ship.ship_coord + ship.ship_around
@@ -142,6 +142,3 @@ class AIPlayer(Player):
                     neighbor_points.append((min_row + len(self.hits), self.hits[0][1]))
             random_point = choice(neighbor_points)
         return random_point
-
-
-# замутить норм выбор координат
