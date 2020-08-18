@@ -117,10 +117,10 @@ class AIPlayer(Player):
             previous_point_row, previous_point_column = self.hits[0]
             for i in range(previous_point_row - 1, previous_point_row + 2):
                 for j in range(previous_point_column - 1, previous_point_column + 2):
-                    if (0 <= i <= 9 and 0 <= j <= 9 and i != j
-                            and (i == previous_point_row or j == previous_point_column)
+                    if (0 <= i <= 9 and 0 <= j <= 9 and
+                            (i == previous_point_row or j == previous_point_column)
                             and not (i == previous_point_row and j == previous_point_column)
-                            and not ((i, j) in self.shoots)):
+                            and ((i, j) not in self.shoots)):
                         neighbor_points.append((i, j))
             random_point = choice(neighbor_points)
         else:
@@ -133,12 +133,15 @@ class AIPlayer(Player):
                     neighbor_points.append((self.hits[0][0], min_column - 1))
                 if min_column + len(self.hits) <= 9:
                     neighbor_points.append((self.hits[0][0], min_column + len(self.hits)))
-            # если общий столбец, выьираем минимальный номер строки и рассматриваем точки выше и ниже
+            # если общий столбец, выбираем минимальный номер строки и рассматриваем точки выше и ниже
             else:
                 min_row = min(list(zip(*self.hits))[0])
                 if min_row - 1 >= 0:
                     neighbor_points.append((min_row - 1, self.hits[0][1]))
                 if min_row + len(self.hits) <= 9:
                     neighbor_points.append((min_row + len(self.hits), self.hits[0][1]))
-            random_point = choice(neighbor_points)
+            while True:
+                random_point = choice(neighbor_points)
+                if random_point not in self.shoots:
+                    break
         return random_point

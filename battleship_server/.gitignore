@@ -1,4 +1,6 @@
 ﻿.idea
 venv
 for_tests.py
-game_logic.py
+node_modules
+package-lock.json
+/static/js/.eslintrc.js
